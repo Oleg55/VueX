@@ -23,8 +23,12 @@ export default createStore({
 				state.cnt--;
 			}
 		},
-		setCnt(state, newCnt){
-			let cnt = parseInt(newCnt);
+		setCnt(state, payload){
+			let cnt = parseInt(payload.cnt);
+			if(isNaN(cnt) || cnt < 1){
+				cnt = 1;
+			}
+			console.log('AALL');
 			state.cnt = cnt;
 		},
 		setStatus(state, status){
@@ -38,7 +42,43 @@ export default createStore({
 			setTimeout(() => {
 				store.commit('setStatus', 'done');
 			}, 500);
+		},
+		sendIncrease(store, state){
+			console.log('sendInc');
+			setTimeout(() => {
+				store.commit('increase', state.cnt++);
+				console.log('sendInc ok');
+			}, 700);
+
+		},
+		sendDecrease(store, state){
+			console.log('sendDec');
+			setTimeout(() => {
+				store.commit('decrease', function(){
+					if(state.cnt > 1){
+						state.cnt--;
+					}
+				});
+				console.log('sendDec ok');
+			}, 700);
+
+		},
+		sendSetCnt(store, state){
+			// console.log('sendSetCnt');
+			//console.log(state);
+				store.commit('setCnt', function(){
+					console.log('LOOL');
+					let cnt = parseInt(state);
+					if(isNaN(cnt) || cnt < 1){
+						cnt = 1;
+					}
+					state.cnt = cnt;
+				});
+				console.log('sendSetCnt ok');
+
+
 		}
+
 	},
 	strict: process.env.NODE_ENV !== 'production',
 });
