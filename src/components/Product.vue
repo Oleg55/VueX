@@ -18,14 +18,19 @@
 			onInput(e){
 				const _this = this;
 				let InpValue = e.target.value;
+				console.log(InpValue);
 				const promise1 = new Promise(function(resolve, reject) {
 						resolve(InpValue);
+
 				});
 
 				promise1.then(function(result) {
+					if(isNaN(InpValue)){
+							e.target.value = _this.cnt;
+					}
 						return _this.sendSetCnt(result);
 				});
-
+			//console.log(e.target.value = this.cnt);
 
 			},
 			...mapActions(['sendIncrease','sendDecrease','sendSetCnt'])

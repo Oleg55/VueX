@@ -28,7 +28,7 @@ export default createStore({
 		setCnt(state, payload){
 			console.log('setCnt');
 			let cnt = parseInt(payload);
-
+			console.log(cnt);
 			if(isNaN(cnt) || cnt < 1){
 				cnt = 1;
 			}
@@ -64,8 +64,10 @@ export default createStore({
 		},
 		sendSetCnt(store, state){
 			setTimeout(() => {
+				//state = state.replace(/[^0-9]/g, '');
+				console.log(state);
 				store.commit('setCnt', state)
-			}, 700);
+			}, 800);
 				console.log('sendSetCnt ok');
 
 
