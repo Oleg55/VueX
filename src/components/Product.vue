@@ -16,44 +16,22 @@
 		methods: {
 			...mapMutations(['decrease', 'increase', 'setCnt']),
 			onInput(e){
+				const _this = this;
 				let InpValue = e.target.value;
-				console.log(InpValue);
-				var keepsHisWord;
-				keepsHisWord = this.sendSetCnt(InpValue);
-				var promise1 = new Promise(function(resolve, reject) {
-					// console.log(keepsHisWord);
-					if (keepsHisWord) {
+				const promise1 = new Promise(function(resolve, reject) {
 						resolve(InpValue);
-					} else {
-						reject("The man doesnt want to keep his word");
-					}
 				});
-				console.log(promise1);
-				// this.setCnt(e.target.value);
-				//console.log(this.sendSetCnt(e.target.value));
 
-				// const sendS = this.sendSetCnt(e.target.value);
-				// var promise = new Promise(function(resolve, reject) {
-				// 	console.log(sendS);
-				// 	 resolve(sendS);
-				// });
-				// promise
-				// 	.then(
-				// 		result => {
-				// 			// первая функция-обработчик - запустится при вызове resolve
-				// 			console.log("Fulfilled: " + sendS); // result - аргумент resolve
-				// 		},
-				// 		error => {
-				// 			// вторая функция - запустится при вызове reject
-				// 			console.log("Rejected: " + error); // error - аргумент reject
-				// 		}
-				// 	);
-					
-				// -> this.$store.commit('setCnt', e.target.value)
-				// -> store.mutations.setCnt(store.state, e.target.value)
+				promise1.then(function(result) {
+						return _this.sendSetCnt(result);
+				});
+
+
 			},
 			...mapActions(['sendIncrease','sendDecrease','sendSetCnt'])
-		}
+			
+		},
+
 		/*
 			{
 				decrease(){

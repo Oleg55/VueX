@@ -16,19 +16,22 @@ export default createStore({
 	},
 	mutations: {
 		increase(state){
+			console.log('+++++++');
 			state.cnt++;
 		},
 		decrease(state){
 			if(state.cnt > 1){
+				console.log('-------');
 				state.cnt--;
 			}
 		},
 		setCnt(state, payload){
-			let cnt = parseInt(payload.cnt);
+			console.log('setCnt');
+			let cnt = parseInt(payload);
+
 			if(isNaN(cnt) || cnt < 1){
 				cnt = 1;
 			}
-			console.log('AALL');
 			state.cnt = cnt;
 		},
 		setStatus(state, status){
@@ -46,7 +49,7 @@ export default createStore({
 		sendIncrease(store, state){
 			console.log('sendInc');
 			setTimeout(() => {
-				store.commit('increase', state.cnt++);
+				store.commit('increase');
 				console.log('sendInc ok');
 			}, 700);
 
@@ -54,26 +57,15 @@ export default createStore({
 		sendDecrease(store, state){
 			console.log('sendDec');
 			setTimeout(() => {
-				store.commit('decrease', function(){
-					if(state.cnt > 1){
-						state.cnt--;
-					}
-				});
+				store.commit('decrease');
 				console.log('sendDec ok');
 			}, 700);
 
 		},
 		sendSetCnt(store, state){
-			// console.log('sendSetCnt');
-			//console.log(state);
-				store.commit('setCnt', function(){
-					console.log('LOOL');
-					let cnt = parseInt(state);
-					if(isNaN(cnt) || cnt < 1){
-						cnt = 1;
-					}
-					state.cnt = cnt;
-				});
+			setTimeout(() => {
+				store.commit('setCnt', state)
+			}, 700);
 				console.log('sendSetCnt ok');
 
 
